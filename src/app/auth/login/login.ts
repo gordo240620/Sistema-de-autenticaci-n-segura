@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
@@ -10,12 +12,25 @@ import { FormsModule } from '@angular/forms';
 })
 export class Login {
 
-  correo = '';
-  password = '';
+  correo: string = '';
+  password: string = '';
+  mensaje: string = '';
 
-  iniciarSesion() {
-    console.log(this.correo);
-    console.log(this.password);
+  constructor(
+    private auth: Auth,
+    private router: Router
+  ) {}
+
+  iniciarSesion(): void {
+
+    const acceso = this.auth.login(this.correo, this.password);
+
+    if (acceso) {
+      this.router.navigate(['/dashboard']);
+    } else {
+      this.mensaje = 'Correo o contraseña incorrectos';
+    }
+
   }
 
 }
