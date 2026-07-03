@@ -11,6 +11,8 @@ import { Auth } from '../services/auth';
 })
 export class Dashboard {
 
+  nombreUsuario = 'Administrador';
+
   constructor(
     private auth: Auth,
     private router: Router
